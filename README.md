@@ -24,6 +24,9 @@ Consider the following examples:
 
 Write a simulation of the Clifford Engine. Your solution should be efficient and easy to extend. Dr. Clifford is interested in exploring conditional branching instructions later in the year.
 
+## Dev
+- lein plugin install lein-midje 1.0.10
+
 ## License
 
 Copyright (C) 2012 Reborg
