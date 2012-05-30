@@ -1,6 +1,7 @@
 (ns rpn-clojure.test.core
   (:use [rpn-clojure.core])
-  (:use [clojure.test]))
+  (:use [midje.sweet]))
 
-(deftest replace-me ;; FIXME: write
-  (is false "No tests have been written."))
+(facts "validating operations"
+  (fact "it only executes known operations"
+        (clifford "678") => "clifford does not understand operation 6"))
