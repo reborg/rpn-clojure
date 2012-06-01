@@ -1,8 +1,8 @@
 (ns rpn-clojure.core)
 
 (def operations #{\0 \1 \2 \3 \4 \5})
-(defstruct current-input-and-stack :input :stack)
-(defmacro state [current-input current-stack] (struct current-input-and-stack current-input current-stack))
+(defstruct current-input-and-stack :input :stack :result)
+(defmacro state [current-input current-stack & result] (struct current-input-and-stack current-input current-stack result))
 
 (defn push [ops]
   (state
@@ -10,7 +10,7 @@
     (cons (first (:input ops))
           (:stack ops))))
 
-;;(defn pop  [stack])
+(defn pops [ops])
 ;;(defn add  [stack])
 ;;(defn sub  [stack])
 ;;(defn mul  [stack])
