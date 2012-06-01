@@ -1,13 +1,14 @@
 (ns rpn-clojure.core)
 
 (def operations #{\0 \1 \2 \3 \4 \5})
-(defstruct current :input :stack)
+(defstruct current-input-and-stack :input :stack)
+(defmacro state [current-input current-stack] (struct current-input-and-stack current-input current-stack))
 
 (defn push [ops]
-  (struct current 
-          (rest (:input ops)) 
-          (cons (first (:input ops))
-                (:stack ops))))
+  (state
+    (rest (:input ops)) 
+    (cons (first (:input ops))
+          (:stack ops))))
 
 ;;(defn pop  [stack])
 ;;(defn add  [stack])
@@ -21,6 +22,5 @@
     (if (and (= \0 (first program)) (= 1 (count program))) 
       "missing argument for push"
       (if (= \0 (first program)) 
-        (first (:stack (push (struct current (rest program) []))))))
+        (first (:stack (push (state (rest program) []))))))
     (str "clifford does not understand operation " (first program))))
-

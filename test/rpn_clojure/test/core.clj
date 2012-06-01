@@ -12,8 +12,8 @@
 (facts "stack operations" 
        (fact "the first item in is the first item out"
              (clifford "091") => \9
-             (provided (push {:input '(\9 \1), :stack []}) => (struct current '(\1) [\9]))))
+             (provided (push {:input '(\9 \1), :stack []}) => (state '(\1) [\9]))))
 
 (facts "push"
        (fact "there is a new item on the stack"
-             (push (struct current [\1] [])) => (struct current [] [\1])))
+             (push (state [\1] [])) => (state [] [\1])))
