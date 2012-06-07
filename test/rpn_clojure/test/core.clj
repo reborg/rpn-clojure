@@ -12,8 +12,7 @@
 (facts "stack operations" 
        (fact "the first item in is the first item out"
              (clifford "091") => \9
-             (provided (push {:input '(\9 \1), :stack [], :result nil}) => (state '(\1) [\9]))
-             (provided (pops {:input '(), :stack [\9], :result nil}) => {:input '(), :stack [], :result \9})))
+             (provided (push {:input '(\9 \1), :stack [], :result nil}) => (state '(\1) [\9]))))
 
 (facts "push"
        (fact "there is a new item on the stack"
