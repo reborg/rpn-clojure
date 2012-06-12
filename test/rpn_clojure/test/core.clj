@@ -19,3 +19,7 @@
              (push (state [\1] [])) => (state [] [\1]))
        (fact "new items are pushed bofore the others"
              (push (state [\2] [\1])) => (state [] [\2 \1])))
+
+(facts "exec"
+       (fact "invokes the operation and removes it from the input"
+             (exec {:input '(\0 \1) :stack [] :result nil}) => (state '() [\1])))

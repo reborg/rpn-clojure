@@ -17,6 +17,12 @@
 ;;(defn div  [stack])
 ;;(def operations1 {\0 push \1 pop \2 add \3 sub \4 mul \5 div})
 
+(def operations-and-func {\0 push \1 pops \2 pops \3 pops \4 pops \5 pops})
+
+(defn exec [ops]
+    ((operations-and-func (first (:input ops))) 
+      {:input (rest (:input ops)) :stack (:stack ops) :result (:result ops)}))
+
 (defn clifford [program]
   (if (operations (first program))
     (if (and (= \0 (first program)) (= 1 (count program))) 
