@@ -22,3 +22,9 @@
 (facts "exec"
        (fact "invokes the operation and removes it from the input"
              (exec {:input '(\0 \1) :stack [] :result nil}) => (state '() [\1])))
+
+(facts "pop"
+       (fact "it returns nothing if nothing on the stack"
+             (cpop (state '() '())) => {:input '() :stack '() :result nil})
+       (fact "it returns the last thing on the stack"
+             (cpop (state '() '(1 2 3))) => {:input '() :stack '(1 2) :result 3}))

@@ -11,7 +11,11 @@
       (cons (first (:input ops))
             (:stack ops)))))
 
-(defn pops [ops])
+(defn cpop [ops]
+  (let [last-item (last (:stack ops))
+        new-stack (first (split-at (- (count (:stack ops)) 1) (:stack ops)))]
+    {:input (:input ops) :stack new-stack :result last-item}))
+
 ;;(defn add  [stack])
 ;;(defn sub  [stack])
 ;;(defn mul  [stack])
