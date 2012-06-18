@@ -1,32 +1,29 @@
 (ns rpn-clojure.core)
 
-(def operations #{\0 \1 \2 \3 \4 \5})
 (defstruct current-input-and-stack :input :stack :result)
 (defmacro state [current-input current-stack & result] (struct current-input-and-stack current-input current-stack result))
 
-(defn push [ops]
-  (state
-    (rest (:input ops)) 
-    (cons (first (:input ops))
-          (:stack ops))))
+(defn cpush [ops]
+  (if (empty? (:input ops))
+    (throw (Exception. "missing argument for push"))
+    (state
+      (rest (:input ops)) 
+      (cons (first (:input ops))
+            (:stack ops)))))
 
 (defn pops [ops])
 ;;(defn add  [stack])
 ;;(defn sub  [stack])
 ;;(defn mul  [stack])
 ;;(defn div  [stack])
-;;(def operations1 {\0 push \1 pop \2 add \3 sub \4 mul \5 div})
 
-(def operations-and-func {\0 push \1 pops \2 pops \3 pops \4 pops \5 pops})
+(def operations {\0 cpush \1 pops \2 pops \3 pops \4 pops \5 pops})
 
 (defn exec [ops]
-    ((operations-and-func (first (:input ops))) 
+    ((operations (first (:input ops))) 
       {:input (rest (:input ops)) :stack (:stack ops) :result (:result ops)}))
 
 (defn clifford [program]
-  (if (operations (first program))
-    (if (and (= \0 (first program)) (= 1 (count program))) 
-      "missing argument for push"
-      (if (= \0 (first program)) 
-        (first (:stack (push (state (rest program) []))))))
+  (if (contains? operations (first program))
+    (first (:stack (exec (state program []))))
     (str "clifford does not understand operation " (first program))))
