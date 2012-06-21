@@ -11,7 +11,7 @@
 
 (facts "stack operations" 
        (fact "the first item in is the first item out"
-             (clifford "091") => \9))
+             (clifford "091") => 9))
 
 (facts "push"
        (fact "there is a new item on the stack"

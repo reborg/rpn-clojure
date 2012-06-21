@@ -21,13 +21,19 @@
 ;;(defn mul  [stack])
 ;;(defn div  [stack])
 
-(def operations {\0 cpush \1 pops \2 pops \3 pops \4 pops \5 pops})
+(def operations {\0 cpush \1 cpop \2 cpop \3 cpop \4 cpop \5 cpop})
 
 (defn exec [ops]
-    ((operations (first (:input ops))) 
-      {:input (rest (:input ops)) :stack (:stack ops) :result (:result ops)}))
+  (let [operation (operations (first (:input ops)))
+        operands (rest (:input ops))
+        result (operation {:input operands :stack (:stack ops) :result (:result ops)})
+        input-result (:input result)]
+    (if (nil? input-result)
+      (:result result)
+      (recur result))))
+
 
 (defn clifford [program]
   (if (contains? operations (first program))
-    (first (:stack (exec (state program []))))
+    (first (:stack (exec (state program '()))))
     (str "clifford does not understand operation " (first program))))
